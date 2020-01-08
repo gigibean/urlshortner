@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}Welcome to mysite{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+
+        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed&display=swap');
+
+        *:focus {
+            outline: none;
+        }
+
+        h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 25px;
+            color: #fff;
+            margin: 2%;
+        }
+
+        h1 a:focus,
+        h1 a:visited {
+            color: #fff;
+        }
+
+        h1 a:hover {
+            text-decoration: none;
+        }
+
+        body {
+            background-image: url("../static/img/background-img.jpg");
+            background-size: cover;
+            resize: both;
+            height: 100vh;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        #main-div {
+            margin: 15% 0 0 25%;
+            width: 50%;
+        }
+
+        .panel-body {
+            padding-bottom: 10%;
+        }
+
+        .col-sm-9 input[type=text] {
+            width: 100%;
+            left: 0%;
+            background: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: 'Roboto Condensed', sans-serif;
+            border-bottom: 4px solid rgb(255, 255, 255);
+            border-radius: 2px;
+            font-size: 25px;
+            color: #fff;
+        }
+
+        .col-sm-9 input[type=text]:focus {
+            outline: none !important;
+        }
+
+        @media screen and (max-width: 753px) {
+            .col-sm-3 button {
+                background: url("static/img/submit.svg");
+                border: none;
+                cursor: pointer;
+                width: 102px;
+                height: 36.14px;
+                margin-top: 30px;
+                margin-left: 30%;
+            }
+
+            .col-sm-3 button:hover {
+                background: url("static/img/submit-focus.svg");
+                border: none;
+                cursor: pointer;
+                width: 102px;
+                height: 36.14px;
+            }
+        }
+
+        @media screen and (min-width: 754px) {
+            .col-sm-3 button {
+                background: url("static/img/submit.svg");
+                border: none;
+                cursor: pointer;
+                width: 102px;
+                height: 36.14px;
+            }
+
+            .col-sm-3 button:hover {
+                background: url("static/img/submit-focus.svg");
+                border: none;
+                cursor: pointer;
+                width: 102px;
+                height: 36.14px;
+            }
+        }
+
+
+        .col-sm-3 button:focus {
+            outline: none;
+        }
+
+        .result-div {
+            padding: 10px 15px;
+            font-family: 'Roboto Condensed', sans-serif;
+            color: #fff;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+    $(function () {
+        $('#submitButton').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/home/makeshorturl/",
+                data: {
+                    'url': $('#url').val(),
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                },
+                success: returnSuccess,
+                dataType: 'json'
+            });
+        });
+    });
+    $(function () {
+        $('body').keypress(function (e) {
+            if (e.keyCode == 13) {
+                $.ajax({
+                    type: "POST",
+                    url: "/home/makeshorturl/",
+                    data: {
+                        'url': $('#url').val(),
+                        'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                    },
+                    success: returnSuccess,
+                    dataType: 'json'
+                });
+            }
+        });
+    });
+    function returnSuccess(data, textStatus, jqXHR) {
+        if (data.url) {
+            $('#url-result').html(
+                data.url + '  <div><button class=\"copy\"' +
+                'style=\"border: none; background: transparent\">copy!</button><div>'
+            );
+            document.querySelector(".copy").addEventListener("click", function () {
+                var tempElem = document.createElement('textarea');
+                tempElem.value = data.url;
+                document.body.appendChild(tempElem);
+
+                tempElem.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempElem);
+            });
+            $('#url').val("");
+        } else {
+            $('#url-result').text("Do not submit blank.");
+        }
+
+    }
+</script>
+
+<body>
+    <div id="wrap">
+        <header>
+            <h1><a href="{% url 'home' %}">URL Shortner</a></h1>
+        </header>
+
+        <div id="content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>

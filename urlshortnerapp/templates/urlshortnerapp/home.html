@@ -1,0 +1,22 @@
+{% extends "urlshortnerapp/base.html" %}
+
+{% block title %}URL Shortner - Make your URL shorter!{% endblock %}
+
+{% block content %}
+
+<div id="main-div">
+    <div class="panel-body">
+        <div class="col-sm-9">
+            <input type="text" name="url" id="url" class="url-input"
+                placeholder="http://www.facebook.com" />
+        </div>
+        <div class="col-sm-3">
+            {% csrf_token %}
+            <button id="submitButton" class="subBtn"></button></p>
+        </div>
+
+    </div>
+    <div class="result-div"><span id="url-result">Enter the URL above and click submit!</span></div>
+    
+</div>
+{% endblock %}

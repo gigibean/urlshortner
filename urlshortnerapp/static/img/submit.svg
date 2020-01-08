@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="102" height="36.142" viewBox="0 0 102 36.142">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: rgba(255,255,255,0);
+        stroke: #fff;
+        stroke-width: 4px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 16px;
+        font-family: RobotoMono-Regular, Roboto Mono;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="submit" transform="translate(-61 -125)">
+    <g id="사각형_1491" data-name="사각형 1491" class="cls-1" transform="translate(61 125)">
+      <rect class="cls-3" width="102" height="36.142" rx="18.071"/>
+      <rect class="cls-4" x="2" y="2" width="98" height="32.142" rx="16.071"/>
+    </g>
+    <text id="Submit-2" data-name="Submit" class="cls-2" transform="translate(83 150)"><tspan x="0" y="0">Submit</tspan></text>
+  </g>
+</svg>
